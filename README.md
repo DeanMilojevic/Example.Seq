@@ -1,4 +1,4 @@
-# ![Seq](https://datalust.co/img/seq-logo-light.svg)
+# ![Seq](https://datalust.co/img/seq-logo-dark.svg)
 
 This is a small project to experiment and test the [Seq](https://datalust.co/seq).
 
