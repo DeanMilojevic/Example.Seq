@@ -1,0 +1,33 @@
+version: '3.7'
+
+services: 
+  seq:
+    image: datalust/seq
+    container_name: seq
+    hostname: seq
+    ports: 
+      - "80:80"
+      - "5341:5341"
+    networks: 
+      - skynet
+  
+  api:
+    container_name: api
+    image: api
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - "5000:5000"
+      - "5001:5001"
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Test
+      - ASPNETCORE_URLS=http://+:5000
+    depends_on: 
+      - seq
+    restart: on-failure
+    networks: 
+      - skynet
+
+networks: 
+  skynet:
