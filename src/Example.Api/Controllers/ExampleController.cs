@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Example.Api.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace Example.Api.Controllers
@@ -36,6 +38,36 @@ namespace Example.Api.Controllers
         public IActionResult Error()
         {
             _logger.LogError("This is a error in the seq!");
+            return Ok();
+        }
+
+        [HttpGet("exception")]
+        public IActionResult Exception()
+        {
+            try
+            {
+                throw new System.Exception("This should not happen!");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogCritical(ex, "This is an exception loggin in the seq!");
+            }
+            
+            return Ok();
+        }
+        
+        [HttpGet("consumer")]
+        public IActionResult Consumer()
+        {
+            var consumer = new Consumer
+            {
+                FirstName = "first",
+                LastName = "last",
+                DOB = DateTime.Now
+            };
+
+            _logger.LogInformation("This is an object loggin in the seq: {@consumer}", consumer);
+            
             return Ok();
         }
     }
